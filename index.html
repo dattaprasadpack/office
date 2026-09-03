@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Datta Prasad Packaging — Home</title>
+<style>
+  :root {
+    --maroon: #7c0c0c;
+    --maroon-dark: #5c1a1f;
+    --gold: #d9a441;
+    --bg: #ffffff;
+    --section-alt: #f0f5fd;
+    --text: #2a2422;
+    --muted: #4a4a4a;
+    --card-border: #e3dbd0;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; }
+  section { padding: 60px 48px; }
+  h2 { font-size: 34px; font-weight: 800; color: var(--text); margin: 0 0 14px; }
+  .section-lede {
+    max-width: 760px;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+  .center { text-align: center; margin-left: auto; margin-right: auto; }
+
+  .quote-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--maroon);
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .quote-btn .icon-placeholder {
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 3px;
+  }
+
+  /* ---------- Reusable icon utility (mono SVGs, tintable via mask) ---------- */
+  .icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-color: currentColor;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    flex-shrink: 0;
+  }
+  .icon-mail   { -webkit-mask-image: url('icons/mail-svgrepo-com.svg');   mask-image: url('icons/mail-svgrepo-com.svg'); }
+  .icon-home   { -webkit-mask-image: url('icons/home-svgrepo-com.svg');   mask-image: url('icons/home-svgrepo-com.svg'); }
+  .icon-location { -webkit-mask-image: url('icons/location-svgrepo-com.svg'); mask-image: url('icons/location-svgrepo-com.svg'); }
+  .icon-gear   { -webkit-mask-image: url('icons/gear-svgrepo-com.svg');   mask-image: url('icons/gear-svgrepo-com.svg'); }
+  .icon-refresh { -webkit-mask-image: url('icons/refresh-svgrepo-com.svg'); mask-image: url('icons/refresh-svgrepo-com.svg'); }
+  .icon-comment { -webkit-mask-image: url('icons/comment-svgrepo-com.svg'); mask-image: url('icons/comment-svgrepo-com.svg'); }
+  .icon-gift   { -webkit-mask-image: url('icons/gift-svgrepo-com.svg');   mask-image: url('icons/gift-svgrepo-com.svg'); }
+  .icon-people { -webkit-mask-image: url('icons/people-svgrepo-com.svg'); mask-image: url('icons/people-svgrepo-com.svg'); }
+  .icon-close  { -webkit-mask-image: url('icons/close-svgrepo-com.svg');  mask-image: url('icons/close-svgrepo-com.svg'); }
+
+  /* ---------- Header ---------- */
+  header {
+    background: var(--maroon);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 14px 48px;
+    flex-wrap: wrap;
+  }
+
+  .brand { display: flex; align-items: center; gap: 14px; }
+
+  .logo-placeholder {
+    width: 60px;
+    height: 55px;
+    background: #ffffff;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+
+  .brand-text .name {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--gold);
+    line-height: 1.1;
+  }
+
+  .brand-text .tagline {
+    font-size: 13px;
+    color: #f1e9e0;
+  }
+
+  .header-right { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+
+  .lang-select {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    color: var(--text);
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .flag-placeholder {
+    width: 20px;
+    height: 14px;
+    background: #cfcfcf;
+    border-radius: 2px;
+  }
+
+  nav.main-nav { padding: 0 48px 16px; }
+  nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 36px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;
+  }
+  nav.main-nav a { font-size: 15px; font-weight: 700; letter-spacing: 0.3px; }
+  nav.main-nav a:hover { color: var(--gold); }
+
+  /* ---------- Hero slideshow (mobile: single full-bleed crossfade) ---------- */
+  .hero {
+    position: relative;
+    background: #d9d9d9;
+    height: 420px;
+    overflow: hidden;
+  }
+  .hero-mobile-slides { position: absolute; inset: 0; }
+  .hero-mobile-slides img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: hero-fade 16s infinite;
+  }
+  .hero-mobile-slides img:nth-child(1) { animation-delay: 0s; }
+  .hero-mobile-slides img:nth-child(2) { animation-delay: 4s; }
+  .hero-mobile-slides img:nth-child(3) { animation-delay: 8s; }
+  .hero-mobile-slides img:nth-child(4) { animation-delay: 12s; }
+  @keyframes hero-fade {
+    0% { opacity: 0; }
+    3% { opacity: 1; }
+    22% { opacity: 1; }
+    28% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+  .hero-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+  }
+  .hero-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.25);
+  }
+  .hero-dots span.active { background: var(--maroon); width: 12px; height: 12px; }
+
+  /* ---------- Hero collage (desktop only: 4-in-a-row, each cell cycles 4 images) ---------- */
+  .hero-collage { display: none; }
+  @media (min-width: 901px) {
+    .hero-mobile-slides, .hero-dots { display: none; }
+    .hero-collage {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 1fr;
+      gap: 3px;
+      position: absolute;
+      inset: 0;
+    }
+    .hero-cell { position: relative; overflow: hidden; }
+    .hero-cell img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: hero-fade 16s infinite;
+    }
+    .hero-cell img:nth-child(1) { animation-delay: 0s; }
+    .hero-cell img:nth-child(2) { animation-delay: 4s; }
+    .hero-cell img:nth-child(3) { animation-delay: 8s; }
+    .hero-cell img:nth-child(4) { animation-delay: 12s; }
+  }
+
+  /* ---------- Product / service / industry grids ---------- */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: #fbf8f4;
+    border: 1px solid var(--card-border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .card-image-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: #d9d9d9;
+  }
+  .card-image-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .zoomable { cursor: zoom-in; }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 14, 12, 0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    z-index: 100;
+  }
+  .lightbox[hidden] { display: none; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .lightbox-close .icon { width: 18px; height: 18px; }
+  .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+  .card-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 18px;
+  }
+
+  .card-icon-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--maroon);
+    flex-shrink: 0;
+  }
+
+  .card-label span {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: var(--text);
+  }
+
+  .section-head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .section-head-row .copy { max-width: 700px; }
+  .section-head-row h2 { margin-bottom: 10px; }
+  .section-head-row p { margin: 0; font-size: 16px; line-height: 1.5; color: var(--muted); }
+
+  section.alt { background: var(--section-alt); }
+
+  /* ---------- Industries (icon grid) ---------- */
+  .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+    text-align: center;
+  }
+  .industry-item {
+    background: #fbf8f4;
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 28px 12px;
+  }
+  .industry-icon { width: 40px; height: 40px; margin-bottom: 14px; color: var(--maroon); }
+  .industry-item span {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  @media (max-width: 900px) {
+    .industry-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* ---------- Why choose us ---------- */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 40px;
+    margin-top: 20px;
+  }
+  @media (max-width: 900px) {
+    .why-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .why-item { text-align: center; }
+  .why-icon-placeholder {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 18px;
+    background: var(--maroon);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .why-icon-placeholder .icon { width: 34px; height: 34px; }
+  .why-item h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--maroon);
+    margin: 0 0 10px;
+  }
+  .why-item p {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ---------- About ---------- */
+  .about-section p {
+    max-width: 900px;
+    margin: 0 auto 16px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .about-divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto 28px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer {
+    background: var(--maroon-dark);
+    color: #f1e9e0;
+    padding: 56px 48px 24px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 32px;
+  }
+  .footer-col h4 {
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    margin: 0 0 14px;
+  }
+  .footer-col p, .footer-col a {
+    display: block;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #e6dcd0;
+    margin: 0 0 8px;
+  }
+  .footer-icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .footer-icon-placeholder {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f1e9e0;
+  }
+  .footer-icon-placeholder .icon { width: 12px; height: 12px; }
+  .map-placeholder {
+    margin-top: 12px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #d9d9d9;
+    border-radius: 4px;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    margin-top: 40px;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #cbb;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px) {
+    .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .why-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    section { padding: 40px 24px; }
+    .header-top, nav.main-nav { padding-left: 24px; padding-right: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <a href="#" class="brand">
+      <div class="logo-placeholder" aria-label="Logo placeholder"></div>
+      <div class="brand-text">
+        <div class="name">DATTA PRASAD PACKAGING</div>
+        <div class="tagline">Manufacturer of Wooden Pallets Since 2013</div>
+      </div>
+    </a>
+    <div class="header-right">
+      <div class="lang-select">
+        <span class="flag-placeholder" aria-label="Flag placeholder"></span>
+        EN
+        <span>▾</span>
+      </div>
+    </div>
+  </div>
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#industries">Industry</a></li>
+      <li><a href="#about">About Us</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="hero" aria-label="Hero image slideshow">
+  <!-- Mobile: single full-bleed crossfade -->
+  <div class="hero-mobile-slides">
+    <img class="zoomable" src="images/standard-pallets-02.jpeg" alt="Stacked wooden pallets in warehouse">
+    <img class="zoomable" src="images/wooden-crate-long.jpeg" alt="Export wooden crate ready for shipping">
+    <img class="zoomable" src="images/lashing-chocking-container-04.jpeg" alt="Container loaded with lashed and chocked cargo">
+    <img class="zoomable" src="images/wooden-crate-chemical-drums-01.jpeg" alt="Wooden crates for chemical drums">
+  </div>
+  <div class="hero-dots">
+    <span class="active"></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Desktop: 2x2 collage, each cell crossfades through its own 4 images -->
+  <div class="hero-collage">
+    <div class="hero-cell">
+      <img class="zoomable" src="images/standard-pallets-02.jpeg" alt="Stacked wooden pallets in warehouse">
+      <img class="zoomable" src="images/standard-pallets-03.jpeg" alt="Standard wooden pallets stacked in warehouse">
+      <img class="zoomable" src="images/standard-pallets-05.jpeg" alt="Pallets stock in warehouse">
+      <img class="zoomable" src="images/wooden-pallet-closeup.jpeg" alt="Close-up of wooden pallet">
+    </div>
+    <div class="hero-cell">
+      <img class="zoomable" src="images/wooden-crate-long.jpeg" alt="Export wooden crate ready for shipping">
+      <img class="zoomable" src="images/wooden-boxes-01.jpeg" alt="Wooden boxes">
+      <img class="zoomable" src="images/wooden-boxes-02.jpeg" alt="Wooden boxes ready for dispatch">
+      <img class="zoomable" src="images/wooden-crate-warehouse-01.jpeg" alt="Wooden crate in warehouse">
+    </div>
+    <div class="hero-cell">
+      <img class="zoomable" src="images/lashing-chocking-container-04.jpeg" alt="Container loaded with lashed and chocked cargo">
+      <img class="zoomable" src="images/lashing-chocking-container-02.jpeg" alt="Lashing and chocking of cargo in container">
+      <img class="zoomable" src="images/export-packing-container-01.jpeg" alt="Export packing material loaded in container">
+      <img class="zoomable" src="images/palletization-carton-loading.jpeg" alt="Palletization of cartons for shipping">
+    </div>
+    <div class="hero-cell">
+      <img class="zoomable" src="images/wooden-crate-chemical-drums-01.jpeg" alt="Wooden crates for chemical drums">
+      <img class="zoomable" src="images/chemical-pallets-drums-01.jpeg" alt="Chemical pallets with drums">
+      <img class="zoomable" src="images/chemical-pallets-drums-02.jpeg" alt="Chemical drums packed on pallets">
+      <img class="zoomable" src="images/wooden-crate-loading-01.jpeg" alt="Wooden crate being loaded">
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section id="products">
+    <div class="section-head-row">
+      <div class="copy">
+        <h2>OUR PRODUCTS</h2>
+        <p>We develop complete packaging solutions optimized to reduce total costs and environmental impact in your supply chain. Get solutions that meet your industry's specific needs from Datta Prasad Packaging.</p>
+      </div>
+      <a href="#" class="quote-btn">
+        <span class="icon icon-mail" style="background-color:#fff"></span>
+        Get a quote
+      </a>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/chemical-pallets-drums-01.jpeg" alt="Chemical pallets with drums"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>CHEMICAL PALLETS</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/standard-pallets-03.jpeg" alt="Standard wooden pallets stacked in warehouse"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>STANDARD PALLETS</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/wooden-pallet-closeup.jpeg" alt="Plastic pallet"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>PLASTIC PALLET</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/wooden-boxes-01.jpeg" alt="Wooden boxes"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>WOODEN BOXES</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/wooden-crate-long.jpeg" alt="Wooden crates"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>WOODEN CRATES</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section id="services" class="alt">
+    <div class="section-head-row">
+      <div class="copy">
+        <h2>SERVICES WE PROVIDE</h2>
+        <p>We develop complete packaging solutions optimized to reduce total costs and environmental impact in your supply chain. Get solutions that meet your industry's specific needs from Datta Prasad Packaging.</p>
+      </div>
+      <a href="#" class="quote-btn">
+        <span class="icon icon-mail" style="background-color:#fff"></span>
+        Get a quote
+      </a>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/palletization-carton-loading.jpeg" alt="Palletization of cartons for shipping"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>PALLETIZATION</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/export-packing-container-01.jpeg" alt="Export packing material loaded in container"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>EXPORT PACKING MATERIAL</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/standard-pallets-05.jpeg" alt="Pallets stock in warehouse"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>PALLETS STOCK</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-image-placeholder"><img class="zoomable" src="images/lashing-chocking-container-02.jpeg" alt="Lashing and chocking of cargo in container"></div>
+        <div class="card-label">
+          <div class="card-icon-placeholder"></div>
+          <span>LASHING AND CHOCKING</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INDUSTRIES ===== -->
+  <section id="industries">
+    <div class="section-head-row">
+      <div class="copy">
+        <h2>INDUSTRIES WE SERVE</h2>
+        <p>Datta Prasad Packaging serves several specialized sectors with tailored pallet and packaging solutions:</p>
+      </div>
+      <a href="#" class="quote-btn">
+        <span class="icon icon-mail" style="background-color:#fff"></span>
+        Get a quote
+      </a>
+    </div>
+
+    <div class="industry-grid">
+      <div class="industry-item">
+        <svg class="industry-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M26 8h12"/>
+          <path d="M29 8v14L17 45a6 6 0 0 0 5.2 9h19.6a6 6 0 0 0 5.2-9L35 22V8"/>
+          <path d="M21 38h22"/>
+          <circle cx="27" cy="46" r="1.6" fill="currentColor" stroke="none"/>
+          <circle cx="34" cy="49" r="1.6" fill="currentColor" stroke="none"/>
+          <circle cx="39" cy="44" r="1.6" fill="currentColor" stroke="none"/>
+        </svg>
+        <span>Chemical</span>
+      </div>
+      <div class="industry-item">
+        <svg class="industry-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="14" y="14" width="36" height="36" rx="8"/>
+          <path d="M25 32h14"/>
+          <path d="M32 25v14"/>
+        </svg>
+        <span>Pharmaceutical &amp; Healthcare</span>
+      </div>
+      <div class="industry-item">
+        <svg class="industry-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="6" y="24" width="28" height="18" rx="2"/>
+          <path d="M34 30h10l8 8v6H34z"/>
+          <circle cx="19" cy="46" r="4"/>
+          <circle cx="44" cy="46" r="4"/>
+        </svg>
+        <span>Logistics &amp; Shipping</span>
+      </div>
+      <div class="industry-item">
+        <svg class="industry-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M32 10l4 14 16 8-16 2-4 14-4-14-16-2 16-8z"/>
+        </svg>
+        <span>Aerospace</span>
+      </div>
+      <div class="industry-item">
+        <svg class="industry-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="32" cy="32" r="8"/>
+          <path d="M32 12v6M32 46v6M52 32h-6M18 32h-6M45.3 18.7l-4.2 4.2M22.9 41.1l-4.2 4.2M45.3 45.3l-4.2-4.2M22.9 22.9l-4.2-4.2"/>
+        </svg>
+        <span>Heavy Engineering</span>
+      </div>
+      <div class="industry-item">
+        <svg class="industry-icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 50V32l10-6 10 6v18"/>
+          <path d="M30 50V26l10-8 10 8v24"/>
+          <path d="M6 50h52"/>
+        </svg>
+        <span>Steel &amp; Metal</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE US ===== -->
+  <section class="alt">
+    <h2 class="center">WHY CHOOSE DATTA PRASAD PACKAGING</h2>
+    <p class="section-lede center">We bring together decades of experience, certified quality, and responsive service — helping Indian exporters ship smarter.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon-placeholder"><span class="icon icon-gear"></span></div>
+        <h3>Quality Products</h3>
+      </div>
+      <div class="why-item">
+        <div class="why-icon-placeholder"><span class="icon icon-refresh"></span></div>
+        <h3>Customized Solutions</h3>
+      </div>
+      <div class="why-item">
+        <div class="why-icon-placeholder"><span class="icon icon-comment"></span></div>
+        <h3>Reliable Service</h3>
+      </div>
+      <div class="why-item">
+        <div class="why-icon-placeholder"><span class="icon icon-gift"></span></div>
+        <h3>Cost Effective Solutions</h3>
+      </div>
+      <div class="why-item">
+        <div class="why-icon-placeholder"><span class="icon icon-people"></span></div>
+        <h3>Customer Satisfaction</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="about-section">
+    <h2 class="center">ABOUT DATTA PRASAD PACKAGING</h2>
+    <div class="about-divider"></div>
+    <p>Datta Prasad Packaging is a reliable provider of Wooden Pallets, industrial packaging and material-handling solutions. We are committed to delivering high-quality, durable, and cost-effective products that help businesses safely store, handle, and transport their valuable goods.</p>
+    <p>With a focus on quality, reliability, and customer satisfaction, we provide packaging solutions suitable for a wide range of industrial requirements.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Factory Address</h4>
+      <div class="footer-icon-row">
+        <div class="footer-icon-placeholder"><span class="icon icon-location"></span></div>
+        <span>Home</span>
+      </div>
+      <p>Beside Plot No. 247, Jawahar Industrial Estate, Kamothe, Panvel - 410209, Maharashtra Code 27</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Regd Office</h4>
+      <div class="footer-icon-row">
+        <div class="footer-icon-placeholder"><span class="icon icon-location"></span></div>
+        <span>Home</span>
+      </div>
+      <p>203, Triveni CHS, Plot no. 90, Sector 23, Juinagar, Navi Mumbai, 400705, Maharashtra Code 27</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>For Sales Enquiry You Can Reach Us At <a href="mailto:dattaprasadpack@gmail.com">dattaprasadpack@gmail.com</a></p>
+      <div class="footer-icon-row">
+        <div class="footer-icon-placeholder"><span class="icon icon-mail"></span></div>
+        <span>Call Us at: +91 8369825590</span>
+      </div>
+      <div class="footer-icon-row">
+        <div class="footer-icon-placeholder"><span class="icon icon-mail"></span></div>
+        <span>+91 9930167549</span>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Our Location</h4>
+      <div class="map-placeholder" aria-label="Map placeholder"></div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    © Copyright Datta Prasad Packaging. All rights reserved.
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox-close" id="lightboxClose" aria-label="Close preview"><span class="icon icon-close"></span></div>
+  <img id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+  (function () {
+    var lightbox = document.getElementById('lightbox');
+    var lightboxImg = document.getElementById('lightboxImg');
+    var closeBtn = document.getElementById('lightboxClose');
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+      lightbox.hidden = false;
+    }
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightboxImg.src = '';
+    }
+
+    document.querySelectorAll('img.zoomable').forEach(function (img) {
+      img.addEventListener('click', function () {
+        openLightbox(img.src, img.alt);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Close when clicking outside the image (on the dark backdrop)
+    lightbox.addEventListener('click', function (e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lightbox.hidden) closeLightbox();
+    });
+  })();
+</script>
+
+</body>
+</html>
