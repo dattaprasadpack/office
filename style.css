@@ -370,6 +370,16 @@ nav.main-nav a:hover { color: var(--orange); }
   display: block;
   cursor: zoom-in;
 }
+/* cards with several photos crossfade between them (see script.js) */
+.product-card .thumb { position: relative; }
+.product-card .thumb img.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .8s ease;
+}
+.product-card .thumb img.slide.active { opacity: 1; pointer-events: auto; }
 .product-card .info { padding: 14px 16px 16px; }
 .product-card h4 {
   font-size: 18px;
@@ -681,6 +691,44 @@ footer {
   cursor: pointer;
 }
 .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.14);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.lightbox-nav:hover { background: var(--orange); }
+.lightbox-nav[hidden] { display: none; }
+.lightbox-nav svg { width: 26px; height: 26px; }
+.lightbox-nav.prev { left: 24px; }
+.lightbox-nav.next { right: 24px; }
+.lightbox-count {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #cfe0f5;
+  font-size: 14px;
+  font-weight: 600;
+}
+.lightbox.has-nav { padding-left: 96px; padding-right: 96px; }
+@media (max-width: 640px) {
+  /* buttons sit in a bar under the photo on phones */
+  .lightbox.has-nav { padding: 64px 12px 96px; }
+  .lightbox-nav { top: auto; bottom: 20px; transform: none; width: 56px; height: 56px; background: rgba(255,255,255,0.18); }
+  .lightbox-nav.prev { left: 24px; }
+  .lightbox-nav.next { right: 24px; }
+  .lightbox-count { bottom: 38px; }
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1240px) {
@@ -746,10 +794,23 @@ footer {
   .menu-toggle svg { width: 22px; height: 22px; }
   .hero-copy { padding: 28px 24px; }
   .hero-copy h1 { font-size: 30px; }
-  .features { padding: 32px 24px; }
-  .features-grid { grid-template-columns: 1fr; }
-  .feature-item { border-left: none !important; border-right: none !important; border-top: 1px solid var(--card-border); padding: 20px 10px 0; }
-  .feature-item:first-child { border-top: none; padding-top: 0; }
+  /* compact 2-column chips: icon + title only */
+  .features { padding: 16px; }
+  .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    padding: 10px 12px;
+    border: 1px solid var(--card-border) !important;
+    border-radius: 6px;
+    background: #fff;
+  }
+  .feature-item:last-child { grid-column: span 2; justify-content: center; }
+  .feature-icon { width: 26px; height: 26px; margin: 0; flex-shrink: 0; }
+  .feature-item h3 { font-size: 13px; margin: 0; line-height: 1.3; }
+  .feature-item p { display: none; }
   .product-grid { grid-template-columns: 1fr; }
   .industry-strip {
     display: grid;
@@ -919,10 +980,12 @@ section.service.alt { background: var(--section-alt); }
 }
 
 @media (max-width: 900px) {
+  /* tablets keep images and copy side by side */
   .service-layout,
-  .service.alt .service-layout { grid-template-columns: 1fr; gap: 24px; }
-  .service.alt .service-media { order: 0; }
-  .service-media { min-height: 320px; }
+  .service.alt .service-layout { gap: 24px; }
+  .service-media { min-height: 300px; }
+  .service-copy h2 { font-size: 24px; }
+  .service-points { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   .page-intro { padding: 24px 24px 20px; }
@@ -1096,7 +1159,7 @@ section.ab-section.alt { background: var(--section-alt); }
   .why-card { padding: 18px 12px; }
 }
 
-/* ---------- Industries page ---------- */
+/* ---------- Gallery page (industry-style cards) ---------- */
 .industry-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1119,45 +1182,30 @@ section.ab-section.alt { background: var(--section-alt); }
   display: block;
   cursor: zoom-in;
 }
-.ind-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 22px 22px;
-}
-.ind-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-.ind-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: #fdf0e4;
-  color: var(--orange);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-.ind-icon svg { width: 26px; height: 26px; }
-.ind-head h2 {
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--navy);
-}
-.ind-body p {
-  font-size: 15px;
-  line-height: 1.6;
-  color: var(--muted);
-  margin: 0 0 16px;
-}
-.ind-body .service-points { margin-bottom: 18px; }
-.ind-body .service-points li { font-size: 14px; }
 .ind-link {
-  margin-top: auto;
   font-size: 15px;
   font-weight: 700;
   color: var(--orange);
 }
 .ind-link:hover { color: var(--orange-dark); }
+
+.gallery-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.gallery-head h2 { font-size: 24px; font-weight: 800; color: var(--navy); }
+.gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.gallery-card { margin: 0; }
+.gallery-card .ind-img { aspect-ratio: 4 / 3; }
+.gallery-card figcaption {
+  padding: 10px 14px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--navy);
+}
 
 .industry-cta {
   display: flex;
@@ -1175,12 +1223,64 @@ section.ab-section.alt { background: var(--section-alt); }
 
 @media (max-width: 1100px) {
   .industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
   .industry-grid { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .gallery-head h2 { font-size: 20px; }
   .industry-cta { flex-direction: column; align-items: flex-start; padding: 24px; }
 }
 @media (max-width: 560px) {
   .industry-card { scroll-margin-top: 64px; }
-  .ind-body { padding: 18px; }
+}
+
+/* ---------- Mobile title sizes ---------- */
+@media (max-width: 560px) {
+  /* home section titles carry inline sizes, hence !important */
+  #products h2 { font-size: clamp(20px, 6.4vw, 26px) !important; }
+  #about h2, #contact h2 { font-size: clamp(18px, 5.6vw, 22px) !important; }
+  .hero-copy h1 { font-size: 26px; }
+  .page-intro h1 { font-size: 24px; }
+  .service-copy h2 { font-size: 21px; }
+  .sec-title { font-size: 21px; }
+  .gallery-head h2 { font-size: 18px; }
+}
+
+/* ---------- Mobile header & services layout ---------- */
+@media (max-width: 560px) {
+  /* brand name on one line, sized to fill the bar */
+  header .brand-text .name { font-size: clamp(14px, 4.3vw, 18px); white-space: nowrap; }
+  header .brand-text .name br { display: none; }
+  header .brand-text .tagline { font-size: 10px; letter-spacing: 1.6px; margin-top: 2px; }
+
+  /* services: photo left, number + title + intro right, the rest full width below */
+  .service-layout,
+  .service.alt .service-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 0 14px; }
+  .service-copy { display: contents; }
+  .service-media,
+  .service.alt .service-media { grid-column: 1; grid-row: 1 / 4; order: 0; gap: 6px; align-self: start; }
+  .service-media .main-img { aspect-ratio: 1 / 1; }
+  .service-thumbs { gap: 6px; }
+  .service-num,
+  .service-copy h2,
+  .service-copy h2 + p { grid-column: 2; }
+  .service-num { grid-row: 1; margin-bottom: 4px; font-size: 12px; }
+  .service-copy h2 { grid-row: 2; font-size: 18px; margin-bottom: 6px; }
+  .service-copy h2 + p { grid-row: 3; font-size: 14px; line-height: 1.5; margin: 0; }
+  .service-copy h2 + p ~ * { grid-column: 1 / -1; }
+  .service-copy h2 + p + p { margin-top: 16px; font-size: 15px; }
+}
+
+/* ---------- Mobile product cards: photo left, text right ---------- */
+@media (max-width: 560px) {
+  .product-grid { gap: 12px; }
+  .product-card { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); }
+  .product-card .thumb { aspect-ratio: auto; min-height: 120px; }
+  /* absolute so the photo fills the card height set by the text */
+  .product-card .thumb img { position: absolute; inset: 0; }
+  .product-card .info { display: flex; flex-direction: column; justify-content: center; padding: 12px 14px; }
+  .product-card h4 { font-size: 16px; margin-bottom: 4px; }
+  .product-card p { font-size: 13px; margin-bottom: 6px; }
+  .product-card .arrow { font-size: 22px; }
 }
